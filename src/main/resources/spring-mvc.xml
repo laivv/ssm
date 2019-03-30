@@ -24,7 +24,7 @@
     <property name="messageConverters">
       <list>
         <!-- JSON转换器 -->
-        <ref bean="mappingJacksonHttpMessageConverter" />
+        <!-- <ref bean="mappingJacksonHttpMessageConverter" /> -->
       </list>
     </property>
   </bean>
