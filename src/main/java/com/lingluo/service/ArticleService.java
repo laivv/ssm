@@ -7,7 +7,7 @@ import java.util.List;
 import com.lingluo.model.Article;
 
 public interface ArticleService {
-	Article getArticleById(String id);
-	List<Article> getArticle(int page,int size);
-	boolean removeArticleById(String id);
+	Article findById(String id);
+	List<Article> findAll(int page,int size);
+	boolean removeById(String id);
 }

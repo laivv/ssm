@@ -15,19 +15,19 @@ public class ArticleServiceImpl implements ArticleService {
 	@Autowired
 	private ArticleDao articleDao;
 	
-	public Article getArticleById(String id) {
+	public Article findById(String id) {
 		
 		return articleDao.queryById(id);
 	}
 
 	@Override
-	public List<Article> getArticle(int page, int size) {
-		
-		return articleDao.queryAll(page, size);
+	public List<Article> findAll(int page, int size) {
+		int pageIndex = (1 - page) *size;
+		return articleDao.queryAll(pageIndex, size);
 	}
 
 	@Override
-	public boolean removeArticleById(String id) {
+	public boolean removeById(String id) {
 		return true;
 	}
 

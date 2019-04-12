@@ -19,5 +19,11 @@
         <include refid="tb"/> 
         where article_id=#{id}
     </select>
+<!--     
+     <select id="queryAll" resultType="com.lingluo.model.Article">
+        select * from 
+        <include refid="tb"/> 
+        limit #{page},#{size}
+    </select> -->
 
 </mapper>
