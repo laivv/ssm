@@ -5,5 +5,5 @@ import com.lingluo.model.Article;
 
 
 public interface ArticleDao extends BaseDao<Article> {
-
+	
 }

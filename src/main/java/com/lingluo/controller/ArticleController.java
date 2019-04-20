@@ -2,20 +2,16 @@ package com.lingluo.controller;
 
 import java.util.List;
 import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lingluo.common.Page;
+import com.lingluo.common.PageResult;
+import com.lingluo.common.Result;
 import com.lingluo.model.Article;
 import com.lingluo.service.ArticleService;
 
@@ -26,29 +22,31 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	
-/*	@RequestMapping(value="/list/{page}.do",method = RequestMethod.GET)
-	public List<Article> getArticles(@PathVariable int page) throws IOException{
+	@RequestMapping(value="/list/{page}",method = RequestMethod.GET)
+	public Result<Page<Article>> getArticles(@PathVariable int page) throws IOException{
 		List<Article> articles = articleService.findAll(page, 10);
-		return articles;
-	}*/
+		//Page<Article> pageData = new Page<Article>(articles, page, 10, 1, 1);
+		//Result<Page<Article>> result = new Result<Page<Article>>(pageData);
+//		return articles;
+		PageResult result2 = new PageResult<Article>(articles,page,10,0,0);
+		return result2;
+	}
 	
-	
-	@ResponseBody
-	@RequestMapping(value="/article/{id}.do", method = RequestMethod.GET)
+	@RequestMapping(value="/article/{id}", method = RequestMethod.GET)
 	public Article getArticle(@PathVariable String id) throws IOException{
 		Article article = articleService.findById(id);
 		return article;
 	}
 	
 	
-	@RequestMapping(value="/article.do",method = RequestMethod.GET)
-	public String addArticle(HttpServletRequest request) throws IOException{
+	@RequestMapping(value="/article",method = RequestMethod.GET)
+	public String addArticle() throws IOException{
 		return "abc";
 		
 	}
 	
 	
-	@RequestMapping(value="/article.do",method = RequestMethod.POST)
+	@RequestMapping(value="/article",method = RequestMethod.POST)
 	public String updateArticle(@RequestParam String id) throws IOException{
 		return "1";
 	}
