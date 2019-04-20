@@ -22,7 +22,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<Article> findAll(int page, int size) {
-		int pageIndex = (1 - page) *size;
+		page = page < 1 ? 1 : page;
+		int pageIndex = (page - 1) *size;
 		return articleDao.queryAll(pageIndex, size);
 	}
 
