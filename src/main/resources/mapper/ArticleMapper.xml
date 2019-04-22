@@ -17,7 +17,7 @@
      <select id="queryById" parameterType="String" resultType="com.lingluo.model.Article">
         select * from 
         <include refid="tb"/> 
-        where article_id=#{id}
+        where id=#{id}
     </select>
 
      <select id="queryAll" resultType="com.lingluo.model.Article">
