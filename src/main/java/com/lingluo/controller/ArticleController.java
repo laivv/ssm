@@ -2,6 +2,8 @@ package com.lingluo.controller;
 
 import java.util.List;
 import java.io.IOException;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ import com.lingluo.service.ArticleService;
 
 @RestController
 public class ArticleController {
-	
+	private Logger logger = Logger.getLogger(getClass());
 	@Autowired
 	private ArticleService articleService;
 
@@ -28,6 +30,7 @@ public class ArticleController {
 		//Page<Article> pageData = new Page<Article>(articles, page, 10, 1, 1);
 		//Result<Page<Article>> result = new Result<Page<Article>>(pageData);
 //		return articles;
+		logger.debug("获取文章列表数据");
 		PageResult result2 = new PageResult<Article>(articles,page,10,0,0);
 		return result2;
 	}
