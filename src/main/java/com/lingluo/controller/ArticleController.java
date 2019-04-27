@@ -1,7 +1,9 @@
 package com.lingluo.controller;
 
+import java.util.Calendar;
 import java.util.List;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,13 @@ public class ArticleController {
 	
 	@RequestMapping(value="/list/{page}",method = RequestMethod.GET)
 	public Result<Page<Article>> getArticles(@PathVariable int page) throws IOException{
-		List<Article> articles = articleService.findAll(page, 10);
+		List<Article> articles = articleService.findByPage(page, 10);
 		//Page<Article> pageData = new Page<Article>(articles, page, 10, 1, 1);
 		//Result<Page<Article>> result = new Result<Page<Article>>(pageData);
 //		return articles;
 		logger.debug("获取文章列表数据");
-		PageResult result2 = new PageResult<Article>(articles,page,10,0,0);
+		int count = articleService.count();
+		PageResult result2 = new PageResult<Article>(articles,page,10,count);
 		return result2;
 	}
 	
@@ -42,9 +45,21 @@ public class ArticleController {
 	}
 	
 	
-	@RequestMapping(value="/article",method = RequestMethod.GET)
+	@RequestMapping(value="/article/add",method = RequestMethod.GET)
 	public String addArticle() throws IOException{
-		return "abc";
+		Article article = new Article();
+		article.setTitle("测式");
+		article.setCommentState(1);
+		article.setContent("测试内容");
+		Timestamp d = new Timestamp(System.currentTimeMillis());
+		article.setCreateDate(d);
+		article.setCreateUser(1);
+		article.setPermission(0);
+		article.setState(1);
+		article.setVisitCount(0);
+		article.setCategoryId(1);
+		articleService.save(article);
+		return "1";
 		
 	}
 	

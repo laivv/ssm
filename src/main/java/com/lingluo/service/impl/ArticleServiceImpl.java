@@ -17,19 +17,41 @@ public class ArticleServiceImpl implements ArticleService {
 	
 	public Article findById(String id) {
 		
-		return articleDao.queryById(id);
+		return articleDao.findById(id);
 	}
 
 	@Override
-	public List<Article> findAll(int page, int size) {
+	public List<Article> findByPage(int page, int size) {
 		page = page < 1 ? 1 : page;
 		int pageIndex = (page - 1) *size;
-		return articleDao.queryAll(pageIndex, size);
+		return articleDao.findByPage(pageIndex, size);
 	}
 
 	@Override
-	public boolean removeById(String id) {
-		return true;
+	public void delete(String id) {
+		articleDao.delete(id);
+	}
+
+	@Override
+	public void save(Article t) {
+		articleDao.save(t);
+		
+	}
+
+	@Override
+	public void update(Article t) {
+		articleDao.update(t);
+		
+	}
+
+	@Override
+	public List<Article> findAll() {
+		return articleDao.findAll();
+	}
+
+	@Override
+	public int count() {
+		return articleDao.count();
 	}
 
 }
