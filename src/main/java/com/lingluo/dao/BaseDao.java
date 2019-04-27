@@ -6,8 +6,10 @@ import org.apache.ibatis.annotations.Param;
 
 
 public interface BaseDao<T> {
-	public T queryById(String id);
-	public List<T> queryAll(@Param("page") int page,@Param("size") int size);
-	public boolean removeById(String id);
-	public String insert(T t);
+	public void save(T t);
+	public void delete(String id);
+	public void update(T t);
+	public T findById(String id);
+	public List<T> findByPage(@Param("page") int page,@Param("size") int size);
+	public List<T> findAll();
 }

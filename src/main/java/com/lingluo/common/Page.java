@@ -7,14 +7,14 @@ public class Page<T> {
 	private int pageIndex ;
 	private int pageSize;
 	private int pageCount;
-	private int count;
-	public Page(List<T> list, int pageIndex, int pageSize, int pageCount, int count) {
+	private int dataCount;
+	public Page(List<T> list, int pageIndex, int pageSize, int pageCount, int dataCount) {
 		super();
 		this.list = list;
 		this.pageIndex = pageIndex;
 		this.pageSize = pageSize;
 		this.pageCount = pageCount;
-		this.count = count;
+		this.dataCount = dataCount;
 	}
 	public List<T> getList() {
 		return list;
@@ -40,11 +40,11 @@ public class Page<T> {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
-	public int getCount() {
-		return count;
+	public int getDataCount() {
+		return dataCount;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public void setDataCount(int count) {
+		this.dataCount = count;
 	}
 		
 }
