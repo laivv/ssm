@@ -1,15 +1,15 @@
 package com.lingluo.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class Article {
 	private int id;
 	private String title;
 	private String content;
 	private int categoryId;
-	private Timestamp createDate;
-	private Timestamp updateDate;
-	private Timestamp deleteDate;
+	private Date createDate;
+	private Date updateDate;
+	private Date deleteDate;
 	private int createUser;
 	private int visitCount;
 	private int commentState;
@@ -36,22 +36,22 @@ public class Article {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public Timestamp getUpdateDate() {
+	public Date getUpdateDate() {
 		return updateDate;
 	}
-	public void setUpdateDate(Timestamp updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	public Timestamp getDeleteDate() {
+	public Date getDeleteDate() {
 		return deleteDate;
 	}
-	public void setDeleteDate(Timestamp deleteDate) {
+	public void setDeleteDate(Date deleteDate) {
 		this.deleteDate = deleteDate;
 	}
 	public int getCreateUser() {

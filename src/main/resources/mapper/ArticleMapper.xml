@@ -2,48 +2,88 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lingluo.dao.ArticleDao">
 
+    <resultMap id="baseResultMap" type="com.lingluo.model.Article">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="category_id" property="categoryId" jdbcType="TINYINT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="delete_date" property="deleteDate" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="SMALLINT"/>
+        <result column="visit_count" property="visitCount" jdbcType="INTEGER"/>
+        <result column="comment_state" property="commentState" jdbcType="TINYINT"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="permission" property="permission" jdbcType="TINYINT"/>
+        <result column="reminder" property="reminder" jdbcType="VARCHAR"/>
+        <result column="reminder_key" property="reminderKey" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <sql id="tb">article</sql>
 
-    <!--  <select id="queryById" parameterType="com.lingluo.model.Article" useGeneratedKeys="true" keyProperty="articleId">
-         select * from
-        <include refid="tb"/>
-        (article_id, article_title,
- 
-        article_content)
-        values (#{articleId,jdbcType=INTEGER}, #{articleTitle,jdbcType=VARCHAR})
-    </select> -->
+    <sql id="col">
+        id,title,content,category_id,create_date,update_date,delete_date,create_user,visit_count,comment_state,state,permission,reminder,reminder_key
+    </sql>
+
     <insert id="save" parameterType="com.lingluo.model.Article">
         insert into
         <include refid="tb"/>
- 
-        (title,content,category_id,create_date,update_date,delete_date,create_user,visit_count,comment_state,state,permission,reminder,reminder_key)
-         values ( #{title,jdbcType=VARCHAR},#{content,jdbcType=LONGVARCHAR},#{categoryId,jdbcType=TINYINT},#{createDate,jdbcType=TIMESTAMP},#{updateDate,jdbcType=TIMESTAMP},#{deleteDate,jdbcType=TIMESTAMP},#{createUser,jdbcType=SMALLINT},#{visitCount,jdbcType=INTEGER},#{commentState,jdbcType=TINYINT},#{state,jdbcType=TINYINT},#{permission,jdbcType=TINYINT},#{reminder,jdbcType=VARCHAR},#{reminderKey,jdbcType=VARCHAR}
-         )
+        ( title,content,category_id,create_date,update_date,delete_date,create_user,visit_count,comment_state,state,permission,reminder,reminder_key)
+        values ( #{title,jdbcType=VARCHAR},#{content,jdbcType=LONGVARCHAR},#{categoryId,jdbcType=TINYINT},#{createDate,jdbcType=TIMESTAMP},#{updateDate,jdbcType=TIMESTAMP},#{deleteDate,jdbcType=TIMESTAMP},#{createUser,jdbcType=SMALLINT},#{visitCount,jdbcType=INTEGER},#{commentState,jdbcType=TINYINT},#{state,jdbcType=TINYINT},#{permission,jdbcType=TINYINT},#{reminder,jdbcType=VARCHAR},#{reminderKey,jdbcType=VARCHAR}
+        )
     </insert>
-    <select id="findById" parameterType="String" resultType="com.lingluo.model.Article">
-        select * from 
+
+    <update id="update" parameterType="com.lingluo.model.Article">
+        update
         <include refid="tb"/>
- 
+        <set>
+            title=#{title,jdbcType=VARCHAR},
+            content=#{content,jdbcType=LONGVARCHAR},
+            category_id=#{categoryId,jdbcType=TINYINT},
+            create_date=#{createDate,jdbcType=TIMESTAMP},
+            update_date=#{updateDate,jdbcType=TIMESTAMP},
+            delete_date=#{deleteDate,jdbcType=TIMESTAMP},
+            create_user=#{createUser,jdbcType=SMALLINT},
+            visit_count=#{visitCount,jdbcType=INTEGER},
+            comment_state=#{commentState,jdbcType=TINYINT},
+            state=#{state,jdbcType=TINYINT},
+            permission=#{permission,jdbcType=TINYINT},
+            reminder=#{reminder,jdbcType=VARCHAR},
+            reminder_key=#{reminderKey,jdbcType=VARCHAR}
+        </set>
+         where id=#{id}
+    </update>
+
+    <select id="findById" resultMap="baseResultMap"  parameterType="String" resultType="com.lingluo.model.Article">
+        select 
+        <include refid="col"/> 
+        from 
+        <include refid="tb"/>
         where id=#{id}
     </select>
 
-    <select id="findByPage" resultType="com.lingluo.model.Article">
-        select * from 
+    <select id="findByPage" resultMap="baseResultMap" resultType="com.lingluo.model.Article">
+        select
+        <include refid="col"/> 
+        from
         <include refid="tb"/>
- 
         limit #{page},#{size}
     </select>
 
-    <select id="findAll" resultType="com.lingluo.model.Article">
-        select * from 
+    <select id="findAll" resultMap="baseResultMap" resultType="com.lingluo.model.Article">
+        select
+        <include refid="col"/>
+        from
         <include refid="tb"/>
     </select>
+
     <select id="count" resultType="Integer">
         select COUNT(id) from 
         <include refid="tb"/>
     </select>
+
     <delete id="delete" parameterType="String">
-        delete 
+        delete from
         <include refid="tb"/>
         where id=#{id}
     </delete>
