@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
+import com.lingluo.common.ErrorResult;
 import com.lingluo.common.Result;
 
 @ControllerAdvice
@@ -19,14 +20,14 @@ import com.lingluo.common.Result;
 public class ExceptionController {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler
-	public Result<?> sendExceptionResult(Exception e){
-		return new Result<Object>(1,e.getMessage(),null);
+	public ErrorResult sendExceptionResult(Exception e){
+		return new ErrorResult(e.getMessage());
 	}
 	
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NoSuchRequestHandlingMethodException.class)
-	public Result<Object> notFound(NoSuchRequestHandlingMethodException  e){
-		return new Result<Object>(1, "请求的资源不存在", null);
+	public ErrorResult notFound(NoSuchRequestHandlingMethodException  e){
+		return new ErrorResult("请求的资源不存在");
 	}
 	
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
