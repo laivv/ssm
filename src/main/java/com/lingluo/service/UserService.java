@@ -1,5 +1,7 @@
 package com.lingluo.service;
 
-public interface UserService {
+import com.lingluo.model.User;
 
+public interface UserService extends BaseService<User> {
+	public User findUser(User user);
 }
