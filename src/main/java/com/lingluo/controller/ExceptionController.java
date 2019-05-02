@@ -32,31 +32,31 @@ public class ExceptionController {
 	
 	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	public Result<Object> methodNotAllowed(HttpRequestMethodNotSupportedException  e){
-		return new Result<Object>(1, "不支持" + e.getMethod() + "请求方法", null);
+	public ErrorResult methodNotAllowed(HttpRequestMethodNotSupportedException  e){
+		return new ErrorResult(e.getMethod() + "请求方法");
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ConversionNotSupportedException.class)
-	public Result<Object> conversionNotSupported(ConversionNotSupportedException e){
-		return new Result<Object>(1, "转换失败：" + e.getPropertyName(), null);
+	public ErrorResult conversionNotSupported(ConversionNotSupportedException e){
+		return new ErrorResult( "转换失败：" + e.getPropertyName());
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(TypeMismatchException.class)
-	public Result<Object> typeMismatch(TypeMismatchException e){
-		return new Result<Object>(1, "类型不匹配，应为：" + e.getRequiredType(), null);
+	public ErrorResult typeMismatch(TypeMismatchException e){
+		return new ErrorResult( "类型不匹配，应为：" + e.getRequiredType());
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Result<Object> argumentNotValid(MethodArgumentNotValidException e){
-		return new Result<Object>(1, "无效的参数", null);
+	public ErrorResult argumentNotValid(MethodArgumentNotValidException e){
+		return new ErrorResult("无效的参数");
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MissingServletRequestParameterException.class)
-	public Result<Object> missingParameter(MissingServletRequestParameterException e){
-		return new Result<Object>(1, "缺失的参数：" + e.getParameterName(), null);
+	public ErrorResult missingParameter(MissingServletRequestParameterException e){
+		return new ErrorResult("缺失的参数：" + e.getParameterName());
 	}
 }

@@ -1,6 +1,6 @@
 package com.lingluo.dto;
 
-public class ArticleDto {
+public class ArticleDTO {
 
 	
 }

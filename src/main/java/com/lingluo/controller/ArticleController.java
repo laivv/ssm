@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.lingluo.common.Page;
 import com.lingluo.common.PageResult;
@@ -25,15 +24,11 @@ public class ArticleController {
 
 	
 	@RequestMapping(value="/list/{page}",method = RequestMethod.GET)
-	public Result<Page<Article>> getArticles(@PathVariable int page) throws IOException{
+	public PageResult<Article> getArticles(@PathVariable int page) throws IOException{
 		List<Article> articles = articleService.findByPage(page, 10);
-		//Page<Article> pageData = new Page<Article>(articles, page, 10, 1, 1);
-		//Result<Page<Article>> result = new Result<Page<Article>>(pageData);
-//		return articles;
 		logger.debug("获取文章列表数据");
 		int count = articleService.count();
-		PageResult result2 = new PageResult<Article>(articles,page,10,count);
-		return result2;
+		return new PageResult<Article>(articles,page,10,count);
 	}
 	
 	@RequestMapping(value="/article/{id}", method = RequestMethod.GET)
