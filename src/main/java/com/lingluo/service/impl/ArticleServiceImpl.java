@@ -19,12 +19,18 @@ public class ArticleServiceImpl implements ArticleService {
 		
 		return articleDao.findById(id);
 	}
-
+	
+	@Override
+	public int countPage(int size){
+		double dataCount = articleDao.count();
+		int pageCount = (int) Math.ceil( dataCount / size);
+		return pageCount;
+	}
+	
 	@Override
 	public List<Article> findByPage(int page, int size) {
-		page = page < 1 ? 1 : page;
-		int pageIndex = (page - 1) *size;
-		return articleDao.findByPage(pageIndex, size);
+		int offset = (page - 1) *size;
+		return articleDao.findByPage(offset, size);
 	}
 
 	@Override

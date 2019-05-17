@@ -25,10 +25,14 @@ public class ArticleController {
 	
 	@RequestMapping(value="/list/{page}",method = RequestMethod.GET)
 	public PageResult<Article> getArticles(@PathVariable int page) throws IOException{
-		List<Article> articles = articleService.findByPage(page, 10);
+		int size = 10;
+		int maxPage = articleService.countPage(size);
+		page = page < 1 ? 1 : page;
+		page = page > maxPage ? maxPage : page;
+		List<Article> articles = articleService.findByPage(page, size);
 		logger.debug("获取文章列表数据");
 		int count = articleService.count();
-		return new PageResult<Article>(articles,page,10,count);
+		return new PageResult<Article>(articles,page,size,count);
 	}
 	
 	@RequestMapping(value="/article/{id}", method = RequestMethod.GET)
